@@ -15,9 +15,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openScanner(View view){
         Intent intent = new Intent(this, ScanActivity.class);
-//        EditText editText = (EditText) findViewById(R.id.editText);
-//        String message = editText.getText().toString();
-//        intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
 }
