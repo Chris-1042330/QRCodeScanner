@@ -32,7 +32,7 @@ public class ScanActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Verwijder titel- en notificatiebar
+        // Verwijder titel- en notificatiebar.
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -98,19 +98,19 @@ public class ScanActivity extends Activity {
 
     }
 
-    private boolean checkCameraHardware(Context context) {
-        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
-    }
-    public static Camera getCameraInstance(){
-        Camera c = null;
-        try {
-            c = Camera.open(); // attempt to get a Camera instance
-        }
-        catch (Exception e){
-            // Camera is not available (in use or does not exist)
-        }
-        return c; // returns null if camera is unavailable
-    }
+//    private boolean checkCameraHardware(Context context) {
+//        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+//    }
+//    public static Camera getCameraInstance(){
+//        Camera c = null;
+//        try {
+//            c = Camera.open(); // attempt to get a Camera instance
+//        }
+//        catch (Exception e){
+//            // Camera is not available (in use or does not exist)
+//        }
+//        return c; // returns null if camera is unavailable
+//    }
 
     public void closeScanner(View view){
         this.onBackPressed();
