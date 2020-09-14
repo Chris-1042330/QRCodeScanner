@@ -32,6 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                String inputname = NewName.getText().toString();
                 String inputpass = NewPassword.getText().toString();
                 String inputemail = NewEmail.getText().toString();
 
