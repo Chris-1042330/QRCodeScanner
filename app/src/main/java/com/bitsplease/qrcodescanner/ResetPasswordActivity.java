@@ -1,4 +1,4 @@
-package com.example.qrscanner;
+package com.bitsplease.qrcodescanner;
 
 import android.os.Bundle;
 import androidx.annotation.NonNull;

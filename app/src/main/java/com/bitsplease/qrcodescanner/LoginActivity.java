@@ -1,4 +1,4 @@
-package com.example.qrscanner;
+package com.bitsplease.qrcodescanner;
 
 import android.content.Intent;
 import android.os.Bundle;
