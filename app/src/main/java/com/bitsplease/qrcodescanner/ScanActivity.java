@@ -1,10 +1,9 @@
 package com.bitsplease.qrcodescanner;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -14,6 +13,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
@@ -39,7 +40,7 @@ public class ScanActivity extends Activity {
         setContentView(R.layout.activity_scan);
 
         cameraView = findViewById(R.id.camera_view);
-        barcodeInfo =  findViewById(R.id.txtContent);
+        barcodeInfo = findViewById(R.id.txtContent);
 
 
         BarcodeDetector barcodeDetector =
@@ -53,10 +54,23 @@ public class ScanActivity extends Activity {
                 .build();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
+            @SuppressLint("MissingPermission")
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
 
                 try {
+//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) = PackageManager.PERMISSION_DENIED) {
+//                        // TODO: Consider calling
+//                        //    ActivityCompat#requestPermissions
+//                        // here to request the missing permissions, and then overriding
+//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+//                        //                                          int[] grantResults)
+//                        // to handle the case where the user grants the permission. See the documentation
+//                        // for ActivityCompat#requestPermissions for more details.
+//                        return;
+//                    }
+//                    else {
+//                    }
                     cameraSource.start(cameraView.getHolder());
                 } catch (IOException ie) {
                     Log.e("CAMERA SOURCE", ie.getMessage());
