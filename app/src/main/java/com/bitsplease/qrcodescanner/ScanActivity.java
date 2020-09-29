@@ -1,9 +1,11 @@
 package com.bitsplease.qrcodescanner;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -24,7 +26,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 
-public class ScanActivity extends Activity {
+public class ScanActivity extends AppCompatActivity {
 
     TextView barcodeInfo;
     SurfaceView cameraView;
@@ -54,23 +56,22 @@ public class ScanActivity extends Activity {
                 .build();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @SuppressLint("MissingPermission")
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
 
                 try {
-//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) = PackageManager.PERMISSION_DENIED) {
-//                        // TODO: Consider calling
-//                        //    ActivityCompat#requestPermissions
-//                        // here to request the missing permissions, and then overriding
-//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                        //                                          int[] grantResults)
-//                        // to handle the case where the user grants the permission. See the documentation
-//                        // for ActivityCompat#requestPermissions for more details.
-//                        return;
-//                    }
-//                    else {
-//                    }
+                    if (ActivityCompat.checkSelfPermission(cmamer, Manifest.permission.CAMERA) = PackageManager.PERMISSION_DENIED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }
+                    else {
+                    }
                     cameraSource.start(cameraView.getHolder());
                 } catch (IOException ie) {
                     Log.e("CAMERA SOURCE", ie.getMessage());
@@ -112,19 +113,19 @@ public class ScanActivity extends Activity {
 
     }
 
-//    private boolean checkCameraHardware(Context context) {
-//        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
-//    }
-//    public static Camera getCameraInstance(){
-//        Camera c = null;
-//        try {
-//            c = Camera.open(); // attempt to get a Camera instance
-//        }
-//        catch (Exception e){
-//            // Camera is not available (in use or does not exist)
-//        }
-//        return c; // returns null if camera is unavailable
-//    }
+    private boolean checkCameraHardware(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
+    }
 
     public void closeScanner(View view){
         this.onBackPressed();
