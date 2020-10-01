@@ -1,9 +1,11 @@
 package com.bitsplease.qrcodescanner;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.hardware.Camera;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -24,8 +26,9 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 import java.io.IOException;
 
 
-public class ScanActivity extends Activity {
+public class ScanActivity extends AppCompatActivity {
 
+    private static final int PERMISSION_REQUEST_CODE = 100;
     TextView barcodeInfo;
     SurfaceView cameraView;
     CameraSource cameraSource;
@@ -34,8 +37,8 @@ public class ScanActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Verwijder titel- en notificatiebar.
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_scan);
 
@@ -43,10 +46,13 @@ public class ScanActivity extends Activity {
         barcodeInfo = findViewById(R.id.txtContent);
 
 
-        BarcodeDetector barcodeDetector =
-                new BarcodeDetector.Builder(this)
-                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
-                        .build();
+//        BarcodeDetector barcodeDetector =
+//                new BarcodeDetector.Builder(ScanActivity.this)
+//                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
+//                        .build();
+
+        BarcodeDetector  barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                .build();
 
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
@@ -54,23 +60,15 @@ public class ScanActivity extends Activity {
                 .build();
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
-            @SuppressLint("MissingPermission")
             @Override
             public void surfaceCreated(SurfaceHolder holder) {
 
                 try {
-//                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) = PackageManager.PERMISSION_DENIED) {
-//                        // TODO: Consider calling
-//                        //    ActivityCompat#requestPermissions
-//                        // here to request the missing permissions, and then overriding
-//                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-//                        //                                          int[] grantResults)
-//                        // to handle the case where the user grants the permission. See the documentation
-//                        // for ActivityCompat#requestPermissions for more details.
-//                        return;
-//                    }
-//                    else {
-//                    }
+                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                        Log.e("test", getString(R.string.no_permission));
+                        ActivityCompat.requestPermissions(ScanActivity.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
+                        return;
+                    }
                     cameraSource.start(cameraView.getHolder());
                 } catch (IOException ie) {
                     Log.e("CAMERA SOURCE", ie.getMessage());
@@ -112,19 +110,19 @@ public class ScanActivity extends Activity {
 
     }
 
-//    private boolean checkCameraHardware(Context context) {
-//        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
-//    }
-//    public static Camera getCameraInstance(){
-//        Camera c = null;
-//        try {
-//            c = Camera.open(); // attempt to get a Camera instance
-//        }
-//        catch (Exception e){
-//            // Camera is not available (in use or does not exist)
-//        }
-//        return c; // returns null if camera is unavailable
-//    }
+    private boolean checkCameraHardware(Context context) {
+        return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
+    }
+    public static Camera getCameraInstance(){
+        Camera c = null;
+        try {
+            c = Camera.open(); // attempt to get a Camera instance
+        }
+        catch (Exception e){
+            // Camera is not available (in use or does not exist)
+        }
+        return c; // returns null if camera is unavailable
+    }
 
     public void closeScanner(View view){
         this.onBackPressed();
