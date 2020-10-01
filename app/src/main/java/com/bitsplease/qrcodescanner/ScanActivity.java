@@ -28,6 +28,7 @@ import java.io.IOException;
 
 public class ScanActivity extends AppCompatActivity {
 
+    private static final int PERMISSION_REQUEST_CODE = 100;
     TextView barcodeInfo;
     SurfaceView cameraView;
     CameraSource cameraSource;
@@ -36,8 +37,8 @@ public class ScanActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // Verwijder titel- en notificatiebar.
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+//        requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_scan);
 
@@ -45,10 +46,13 @@ public class ScanActivity extends AppCompatActivity {
         barcodeInfo = findViewById(R.id.txtContent);
 
 
-        BarcodeDetector barcodeDetector =
-                new BarcodeDetector.Builder(this)
-                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
-                        .build();
+//        BarcodeDetector barcodeDetector =
+//                new BarcodeDetector.Builder(ScanActivity.this)
+//                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
+//                        .build();
+
+        BarcodeDetector  barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+                .build();
 
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
@@ -60,17 +64,10 @@ public class ScanActivity extends AppCompatActivity {
             public void surfaceCreated(SurfaceHolder holder) {
 
                 try {
-                    if (ActivityCompat.checkSelfPermission(cmamer, Manifest.permission.CAMERA) = PackageManager.PERMISSION_DENIED) {
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
+                    if (ActivityCompat.checkSelfPermission(ScanActivity.this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//                        Log.e("test", getString(R.string.no_permission));
+                        ActivityCompat.requestPermissions(ScanActivity.this, new String[]{Manifest.permission.CAMERA}, PERMISSION_REQUEST_CODE);
                         return;
-                    }
-                    else {
                     }
                     cameraSource.start(cameraView.getHolder());
                 } catch (IOException ie) {
