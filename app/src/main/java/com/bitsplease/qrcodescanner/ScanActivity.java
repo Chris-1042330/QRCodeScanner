@@ -36,9 +36,9 @@ public class ScanActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Verwijder titel- en notificatiebar.
-//        requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //Verwijder titel- en notificatiebar.
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_scan);
 
@@ -46,12 +46,12 @@ public class ScanActivity extends AppCompatActivity {
         barcodeInfo = findViewById(R.id.txtContent);
 
 
-//        BarcodeDetector barcodeDetector =
-//                new BarcodeDetector.Builder(ScanActivity.this)
-//                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
-//                        .build();
+        BarcodeDetector barcodeDetector =
+               new BarcodeDetector.Builder(ScanActivity.this)
+                       .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
+                        .build();
 
-        BarcodeDetector  barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
+        BarcodeDetector  BarcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
                 .build();
 
         cameraSource = new CameraSource

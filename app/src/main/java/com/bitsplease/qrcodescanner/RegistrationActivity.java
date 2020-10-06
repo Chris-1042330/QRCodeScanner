@@ -20,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegistrationActivity extends AppCompatActivity {
 
+
+
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
             changeEmail, changePassword, sendEmail, remove, signOut;
 
@@ -229,7 +231,7 @@ public class RegistrationActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Toast.makeText(RegistrationActivity.this, "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(RegistrationActivity.this, "Your profile is deleted :( Create a account now!", Toast.LENGTH_SHORT).show();
                                         startActivity(new Intent(RegistrationActivity.this, SignupActivity.class));
                                         finish();
                                         progressBar.setVisibility(View.GONE);
