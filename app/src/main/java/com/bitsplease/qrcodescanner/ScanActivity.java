@@ -51,9 +51,6 @@ public class ScanActivity extends AppCompatActivity {
                        .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
                         .build();
 
-        BarcodeDetector  BarcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.DATA_MATRIX | Barcode.QR_CODE)
-                .build();
-
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(640, 480)
