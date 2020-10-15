@@ -45,8 +45,11 @@ public class ScanActivity extends AppCompatActivity {
         cameraView = findViewById(R.id.camera_view);
         barcodeInfo = findViewById(R.id.txtContent);
 
-        BarcodeDetector  barcodeDetector = new BarcodeDetector.Builder(this).setBarcodeFormats(Barcode.QR_CODE)
-                .build();
+
+        BarcodeDetector barcodeDetector =
+               new BarcodeDetector.Builder(ScanActivity.this)
+                       .setBarcodeFormats(Barcode.QR_CODE)//QR_CODE)
+                        .build();
 
         cameraSource = new CameraSource
                 .Builder(this, barcodeDetector)
