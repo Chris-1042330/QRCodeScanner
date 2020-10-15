@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, SignupActivity.class));
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
 
@@ -92,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, ResetPasswordActivity.class));
                 Log.d("test"," clicked on reset password");
-
+                overridePendingTransition(R.anim.slide_in_up, R.anim.slide_out_up);
             }
         });
 
