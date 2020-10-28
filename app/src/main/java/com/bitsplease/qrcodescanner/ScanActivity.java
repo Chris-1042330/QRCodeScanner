@@ -1,8 +1,6 @@
 package com.bitsplease.qrcodescanner;
 
 import android.Manifest;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -16,12 +14,15 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.google.android.gms.vision.CameraSource;
 import com.google.android.gms.vision.Detector;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 
@@ -32,6 +33,16 @@ public class ScanActivity extends AppCompatActivity {
     TextView barcodeInfo;
     SurfaceView cameraView;
     CameraSource cameraSource;
+    private DatabaseReference mDatabase;
+
+
+
+    @Override
+    protected void onCreate(Bundle saveInstanceState){
+        
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +66,7 @@ public class ScanActivity extends AppCompatActivity {
                 .Builder(this, barcodeDetector)
                 .setRequestedPreviewSize(640, 480)
                 .build();
+
 
         cameraView.getHolder().addCallback(new SurfaceHolder.Callback() {
             @Override
@@ -83,6 +95,7 @@ public class ScanActivity extends AppCompatActivity {
         });
 
 
+
         barcodeDetector.setProcessor(new Detector.Processor<Barcode>() {
             @Override
             public void release() {
@@ -106,7 +119,12 @@ public class ScanActivity extends AppCompatActivity {
         });
 
     }
-
+    @Override
+    protected void onStart(){
+        super.onStart();
+        firebaseReference = new Firebase("https://qrcodescanner-935b3.firebaseio.com/");
+        firebaseReference.addValueEventListener()
+    }
     private boolean checkCameraHardware(Context context) {
         return context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA);
     }
@@ -124,4 +142,5 @@ public class ScanActivity extends AppCompatActivity {
     public void closeScanner(View view){
         this.onBackPressed();
     }
+
 }
