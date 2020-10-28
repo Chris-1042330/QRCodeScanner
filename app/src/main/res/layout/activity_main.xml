@@ -23,13 +23,36 @@
         android:id="@+id/button"
         android:layout_width="168dp"
         android:layout_height="49dp"
-        android:onClick="openScanner"
         android:text="@string/scanqr_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
+        app:layout_constraintVertical_bias="0.579" />
+
+    <Button
+        android:id="@+id/main_exit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="exit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <Button
+        android:id="@+id/result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="history"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_exit"
+        app:layout_constraintVertical_bias="0.136" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
