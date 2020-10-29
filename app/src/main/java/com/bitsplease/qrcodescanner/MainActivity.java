@@ -58,7 +58,7 @@ public class MainActivity extends ScanActivity {
 
         String actualdate = today.toString();
 
-        df = new SimpleDateFormat("dd-MMM-yyyy");
+        df = new SimpleDateFormat("dd-MM-yyyy");
         formattedDate = df.format(c.getTime());
 
         mDatabaseS = FirebaseDatabase.getInstance().getReference().child("Dates").child(formattedDate).child("science");
